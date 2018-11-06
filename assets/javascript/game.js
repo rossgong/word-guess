@@ -100,7 +100,7 @@ function updateHTML(deb, ray) {
     }
 
     debDiv.innerHTML = deb + "<br>" + blankString;
-    if (wrongGuesses < maxGuesses) {
+    if (playingGame) {
         debDiv.innerHTML += "<br>You have " + (maxGuesses-wrongGuesses) + " chances left..." ;
     }
     
@@ -120,6 +120,7 @@ function updateHTML(deb, ray) {
     called when you lose
 */
 function showLose() {
+    playingGame = false;
     updateHTML("WOW COUCH TONIGHT FOR YOU!!", "shucks")
 }
 
@@ -127,6 +128,7 @@ function showLose() {
     called if you win
 */
 function showWin() {
+    playingGame = false;
     updateHTML("LEMON CHICKEN FOR EVERYONE TONIGHT", "HECK YEAH!!!");
 }
 
@@ -161,7 +163,6 @@ function gameResolution() {
     } else {
         return;
     }
-    playingGame = false;
     anotherGame();
 }
 
