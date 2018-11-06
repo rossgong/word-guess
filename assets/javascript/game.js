@@ -1,27 +1,38 @@
 
 //dictionary of possible words
-var dict = ["robert", "lemon chicken", "ramone", "sports writer", "couch", "marie", "frank"];
+var dict = [["robert", "I bet you don't even know your brother's name..."],
+ ["lemon chicken", "Just GUESS what you're having for dinner tonight!"],
+ ["ramone", "DO YOU EVEN KNOW YOUR NAME???"],
+ ["sports writer", "Remember you JOB??"],
+ ["couch", "Where you'll be sleeping tonight!"],
+ ["marie", "I bet she still can't stand me...."],
+ ["frank", "Your freaking dad"]];
 
 var currentWord;
 var guessedLetters;
 var wrongGuesses;
 var playingGame;
 
-var DEFAULT_RAY_LINE = "UHHHHHHHH <br>";
-var DEFAULT_DEB_LINE = "I bet you think you know EXACTLY what I am thinking. Just TRY and guess <br>";
+var maxGuesses = 5;
+
+var rayLine = "UHHHHHHHH <br>";
+var debLine = "I bet you think you know EXACTLY what I am thinking. Just TRY and guess";
 
 /*
     Set a new word to be played. Resets guessed letter, sets the current word to a new word object.
 */
 function setNewWord() {
-    currentWord = makeWord(getWord());
+    word = getWord();
+
+    currentWord = makeWord(word[0]);
     guessedLetters = [];
     wrongGuesses = 0;
     playingGame = true;
+    debLine = word[1];
 
     console.log(currentWord);
 
-    updateHTML(DEFAULT_DEB_LINE, DEFAULT_RAY_LINE);
+    updateHTML(debLine, rayLine);
 }
 
 /*
@@ -76,27 +87,31 @@ function guessLetter(letter) {
 */
 
 function updateHTML(deb, ray) {
-    var blankDiv = document.getElementById("ray-blanks-div");
-    var guessDiv = document.getElementById("ray-guesses-div");
+    var debDiv = document.getElementById("ray-blanks-div");
+    var rayDiv = document.getElementById("ray-guesses-div");
     var blankString = "";
     var guessString = "";
 
-    if (deb === DEFAULT_DEB_LINE) {
+    if (deb === debLine) {
 
         currentWord.blanks.forEach(blank => {
             blankString += blank + " ";
         });
     }
 
-    blankDiv.innerHTML = deb + blankString;
+    debDiv.innerHTML = deb + "<br>" + blankString;
+    if (wrongGuesses < maxGuesses) {
+        debDiv.innerHTML += "<br>You have " + (maxGuesses-wrongGuesses) + " chances left..." ;
+    }
+    
 
-    if (ray === DEFAULT_RAY_LINE) {
+    if (ray === rayLine) {
         guessedLetters.forEach(letter => {
             guessString += letter + " ";
         });
     }
 
-    guessDiv.innerHTML = ray + "<strong>" + guessString + "</strong>";
+    rayDiv.innerHTML = ray + "<br><strong>" + guessString + "</strong>";
 }
 
 
@@ -128,9 +143,9 @@ function anotherGame() {
 function disapperAnotherGame() {
     document.getElementById("another-game-div").animate({
         opacity: [.95, 0],
-        backgroundColor: ["white", "gray"],
+        backgroundColor: ["gray", "white"],
     }, {
-            duration: 2000,
+            duration: 500,
             fill: "forwards",
         });
 }
@@ -139,7 +154,7 @@ function disapperAnotherGame() {
     Determines if the player have won and tell the player.
 */
 function gameResolution() {
-    if (wrongGuesses > 4) {
+    if (wrongGuesses >= maxGuesses) {
         showLose();
     } else if (currentWord.blanks.indexOf("_") == -1) {
         showWin();
@@ -158,15 +173,19 @@ document.onreadystatechange = () => {
         document.onkeyup = function (event) {
             if (playingGame) {
                 guessLetter(event.key);
-                updateHTML(DEFAULT_DEB_LINE, DEFAULT_RAY_LINE);
+                updateHTML(debLine, rayLine);
                 gameResolution();
+
+                document.getElementById("ray-tune").volume = .4;
+                document.getElementById("ray-tune").play();
             }
         };
 
         document.getElementById("another-game-button").onclick = function (event) {
             if (!playingGame) {
                 setNewWord();
-                disapperAnotherGame();            }
+                disapperAnotherGame();            
+            }
         };
 
         document.getElementById("not-another-game-button").onclick = function (event) {
