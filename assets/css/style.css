@@ -1,0 +1,93 @@
+
+body {
+    margin: 0;
+}
+
+#ray-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#ray-living-room-img {
+    height: 100%;
+    width: 100%;    
+}
+
+.ray-div {
+    position: absolute;
+    width: 16.7%;
+}
+
+.ray-img {
+    width: 100%;
+}
+
+#ray-div-ray {
+    bottom: 0;
+    left: 0;
+}
+
+#ray-div-deb {
+    bottom: 0;
+    right: 0;
+}
+
+#ray-deb-img {
+    transform: scaleX(-1);
+}
+
+#deb-bubble-img {
+    transform: scaleX(-1);
+    width: 100%;
+}
+
+#ray-bubble-img {
+    width: 100%;
+}
+
+#ray-bubble-container {
+    position: absolute;
+    bottom: 50%;
+    left: 75%;
+    width: 150%;
+}
+
+#deb-bubble-container {
+    position: absolute;
+    bottom: 60%;
+    right: 50%;
+    width: 150%;
+}
+
+.speech-bubble {
+    position: relative;
+}
+
+.speech-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    padding: 20%;
+    font-size: 1.25vw; 
+}
+
+#another-game-div {
+    position: absolute;
+    margin: 0 auto;
+    width: 25%;
+    padding: 20px;
+    top: 25%;
+    left: 37.5%;
+    text-align: center;
+    font-size: 1.25vw;
+    opacity: 0;
+    border-radius: 25px;
+}
+
+.game-button {
+    border-radius: 25px;
+    background-color: #aaaaff;
+    color: #333333;
+}

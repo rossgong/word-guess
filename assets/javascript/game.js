@@ -1,11 +1,14 @@
 
 //dictionary of possible words
-var dict = ["ross", "gongaware", "test", "content", "wowza"];
+var dict = ["robert", "lemon chicken", "ramone", "sports writer", "couch", "marie", "frank"];
 
 var currentWord;
 var guessedLetters;
 var wrongGuesses;
+var playingGame;
 
+var DEFAULT_RAY_LINE = "UHHHHHHHH <br>";
+var DEFAULT_DEB_LINE = "I bet you think you know EXACTLY what I am thinking. Just TRY and guess <br>";
 
 /*
     Set a new word to be played. Resets guessed letter, sets the current word to a new word object.
@@ -14,8 +17,11 @@ function setNewWord() {
     currentWord = makeWord(getWord());
     guessedLetters = [];
     wrongGuesses = 0;
-    
-    updateHTML();
+    playingGame = true;
+
+    console.log(currentWord);
+
+    updateHTML(DEFAULT_DEB_LINE, DEFAULT_RAY_LINE);
 }
 
 /*
@@ -31,7 +37,11 @@ function getWord() {
 function makeWord(newWord) {
     var newBlanks = [];
     for (var i = 0; i < newWord.length; i++) {
-        newBlanks.push("_");
+        if (newWord.charAt(i) == " ") {
+            newBlanks.push(String.fromCharCode(13, 10));
+        } else {
+            newBlanks.push("_");
+        }
     }
     return {
         word: newWord.split(""),
@@ -64,38 +74,65 @@ function guessLetter(letter) {
 /*
     Update the HTML based on the currentWord status
 */
-function updateHTML() {
-    var blankDiv = document.getElementById("blanks-div");
-    var guessDiv = document.getElementById("guesses-div");
 
+function updateHTML(deb, ray) {
+    var blankDiv = document.getElementById("ray-blanks-div");
+    var guessDiv = document.getElementById("ray-guesses-div");
     var blankString = "";
     var guessString = "";
 
-    currentWord.blanks.forEach(blank => {
-        blankString += blank + " ";
-    });
+    if (deb === DEFAULT_DEB_LINE) {
 
-    blankDiv.textContent = blankString;
+        currentWord.blanks.forEach(blank => {
+            blankString += blank + " ";
+        });
+    }
 
-    guessedLetters.forEach(letter => {
-        guessString += letter + " ";
-    });
+    blankDiv.innerHTML = deb + blankString;
 
-    guessDiv.textContent = guessString;
+    if (ray === DEFAULT_RAY_LINE) {
+        guessedLetters.forEach(letter => {
+            guessString += letter + " ";
+        });
+    }
+
+    guessDiv.innerHTML = ray + "<strong>" + guessString + "</strong>";
 }
+
+
 
 /*
     called when you lose
 */
 function showLose() {
-    alert("youlose");
+    updateHTML("WOW COUCH TONIGHT FOR YOU!!", "shucks")
 }
 
 /*
     called if you win
 */
 function showWin() {
-    alert("youwin");
+    updateHTML("LEMON CHICKEN FOR EVERYONE TONIGHT", "HECK YEAH!!!");
+}
+
+function anotherGame() {
+    document.getElementById("another-game-div").animate({
+        opacity: [0, .95],
+        backgroundColor: ["white", "gray"],
+    }, {
+            duration: 2000,
+            fill: "forwards",
+        });
+}
+
+function disapperAnotherGame() {
+    document.getElementById("another-game-div").animate({
+        opacity: [.95, 0],
+        backgroundColor: ["white", "gray"],
+    }, {
+            duration: 2000,
+            fill: "forwards",
+        });
 }
 
 /*
@@ -109,17 +146,35 @@ function gameResolution() {
     } else {
         return;
     }
-    setNewWord();
+    playingGame = false;
+    anotherGame();
 }
 
+/*
+    wait until the page is ready before you start changing the page. Otherwise the page could appear blank.
+*/
 document.onreadystatechange = () => {
     if (document.readyState === 'complete') {
         document.onkeyup = function (event) {
-            var key = event.key;
-            guessLetter(key);
-            updateHTML();
-            gameResolution();
+            if (playingGame) {
+                guessLetter(event.key);
+                updateHTML(DEFAULT_DEB_LINE, DEFAULT_RAY_LINE);
+                gameResolution();
+            }
         };
+
+        document.getElementById("another-game-button").onclick = function (event) {
+            if (!playingGame) {
+                setNewWord();
+                disapperAnotherGame();            }
+        };
+
+        document.getElementById("not-another-game-button").onclick = function (event) {
+            if (!playingGame) {
+                disapperAnotherGame();
+                updateHTML("I'm going to bed Ray", "MMM Yeah it is getting late.");
+            }
+        }
 
         setNewWord();
     }

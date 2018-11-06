@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="assets/javascript/game.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>~</title>
 </head>
+
 <body>
-    <div id="blanks-div">_</div>
-    <div id="guesses-div"></div>
+
+    <div id="ray-container">
+        <img src="assets/images/living-room.jpg" id="ray-living-room-img">
+
+        <div id="ray-div-ray" class="ray-div">
+            <img src="assets/images/ray.png" alt="RAY RAMONE" class="ray-img" id="ray-ray-img">
+            <div id="ray-bubble-container">
+                <div class="speech-bubble" id="ray-bubble">
+                    <img src="assets/images/speechbubble.png" alt="speech bubble" id="ray-bubble-img">
+                    <div id="ray-guesses-div" class="speech-text"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="ray-div-deb" class="ray-div">
+            <img src="assets/images/debra.png" alt="DEB" class="ray-img" id="ray-deb-img">
+            <div id="deb-bubble-container">
+                <div class="speech-bubble" id="deb-bubble">
+                    <img src="assets/images/speechbubble.png" alt="speech bubble" id="deb-bubble-img">
+                    <div id="ray-blanks-div" class="speech-text"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="another-game-div">
+            Another Game?
+            <hr>
+            <button class="game-button" id="another-game-button">YES I DO</button>
+            <button class="game-button" id="not-another-game-button">NO I DON'T</button>
+        </div>
+
+    </div>
 </body>
+
 </html>
