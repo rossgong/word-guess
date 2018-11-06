@@ -1,12 +1,14 @@
 
 //dictionary of possible words
 var dict = [["robert", "I bet you don't even know your brother's name..."],
- ["lemon chicken", "Just GUESS what you're having for dinner tonight!"],
- ["ramone", "DO YOU EVEN KNOW YOUR NAME???"],
- ["sports writer", "Remember you JOB??"],
- ["couch", "Where you'll be sleeping tonight!"],
- ["marie", "I bet she still can't stand me...."],
- ["frank", "Your freaking dad"]];
+    ["lemon chicken", "Just GUESS what you're having for dinner tonight!"],
+    ["ramone", "DO YOU EVEN KNOW YOUR NAME???"],
+    ["sports writer", "Remember you JOB??"],
+    ["couch", "Where you'll be sleeping tonight!"],
+    ["marie", "I bet she still can't stand me...."],
+    ["frank", "Your freaking dad"],
+    ["amy", "I just love your sister-in-law"],
+    ["geoffrey", "I BET YOU CAN'T EVEN NAME ONE OF THE TWINS!!"]];
 
 var currentWord;
 var guessedLetters;
@@ -30,7 +32,7 @@ function setNewWord() {
     playingGame = true;
     debLine = word[1];
 
-    console.log(currentWord);
+    // console.log(currentWord);
 
     updateHTML(debLine, rayLine);
 }
