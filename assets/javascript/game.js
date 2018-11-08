@@ -2,8 +2,8 @@
 //dictionary of possible words
 var dict = [["robert", "I bet you don't even know your brother's name..."],
     ["lemon chicken", "Just GUESS what you're having for dinner tonight!"],
-    ["ramone", "DO YOU EVEN KNOW YOUR NAME???"],
-    ["sports writer", "Remember you JOB??"],
+    ["ramone", "DO YOU EVEN KNOW YOUR LAST NAME???"],
+    ["sports writer", "Remember your JOB??"],
     ["couch", "Where you'll be sleeping tonight!"],
     ["marie", "I bet she still can't stand me...."],
     ["frank", "Your freaking dad"],
@@ -67,7 +67,7 @@ function makeWord(newWord) {
     Also correctly increments the wrong guesses.
 */
 function guessLetter(letter) {
-    if (typeof letter === "string" && letter.length === 1 /*&& isLetter(letter)*/) {
+    if (typeof letter === "string" && letter.length === 1 && letter.match(/[a-z]/i)) {
         if (guessedLetters.indexOf(letter) === -1) {
             guessedLetters.push(letter);
             var isCorrect = false;
